@@ -14,7 +14,6 @@ export default class NewBill {
     this.fileName = null
     this.billId = null
     new Logout({ document, localStorage, onNavigate })
-    console.log(this.fileUrl)
   }
   handleChangeFile = e => {
     e.preventDefault()
@@ -28,6 +27,7 @@ export default class NewBill {
     const authorizedType = ["image/jpeg", "image/jpg", "image/png"]
 
     if(!authorizedType.includes(file.type)){
+      console.error("wrong extension")
       this.document.querySelector(`input[data-testid="file"]`).value=""
       return
     }
@@ -53,6 +53,7 @@ export default class NewBill {
     e.preventDefault()
     console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
     const email = JSON.parse(localStorage.getItem("user")).email
+    console.log(email)
     const bill = {
       email,
       type: e.target.querySelector(`select[data-testid="expense-type"]`).value,
@@ -71,7 +72,9 @@ export default class NewBill {
   }
 
   // not need to cover this function by tests
+  /* istanbul ignore next */
   updateBill = (bill) => {
+    console.log(bill)
     if (this.store) {
       this.store
       .bills()
