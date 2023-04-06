@@ -5,14 +5,13 @@
 import { screen, waitFor, fireEvent } from "@testing-library/dom"
 import { localStorageMock } from "../__mocks__/localStorage.js"
 import mockStore from "../__mocks__/store"
-import { ROUTES_PATH } from "../constants/routes.js"
+import { ROUTES, ROUTES_PATH } from "../constants/routes.js"
 import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
 import router from "../app/Router.js"
-import { bills } from "../fixtures/bills.js"
-
 
 describe("Given I am connected as an employee", () => {
+
   describe("When I am on NewBill Page", () => {
 
     test("then mail icon in vertical layout should be highlighted", async () => {
@@ -123,37 +122,57 @@ describe("Given I am connected as an employee", () => {
       // error message is displayed
       expect(errorSpy).toHaveBeenCalledWith("wrong extension")
     })
+
+    // test("then I got back to my first page", async () => {
+
+    //   document.body.innerHTML = NewBillUI()
+
+    //   // simuler une instance NewBill
+    //   const newBill = new NewBill({
+    //     document,
+    //     onNavigate,
+    //     store: mockStore,
+    //     bills: bills,
+    //     localStorage: window.localStorage,
+    //   })
+
+    //   const handleSubmit = jest.fn((e) => newBill.handleSubmit(e));
+
+    //   const form = screen.getByTestId("form-new-bill");
+    //   form.addEventListener("submit", handleSubmit);
+
+    //   fireEvent.submit(form);
+
+    //   expect(screen.getByText("Mes notes de frais")).toBeTruthy()
+    // })
+    
   })
 })
 
 // POST integration test
 describe("When I click on the submit button", () => {
+
+  
+  const onNavigate = (pathname) => {
+    document.body.innerHTML = ROUTES({ pathname })
+  }
+  
   test("then it should create a new bill", () => {
 
     document.body.innerHTML = NewBillUI()
 
     Object.defineProperty(window, "localStorage", {
       value: localStorageMock,
-    });
+    })
 
     window.localStorage.setItem(
       "user",
       JSON.stringify({
-        type: "Employee",
-        email: "a@a",
+        email: "a@a"
       })
     )
 
-    const mockOnNavigate = jest.fn()
-
-    const newBill = new NewBill({
-      document,
-      onNavigate: mockOnNavigate,
-      store: mockStore,
-      localStorage: window.localStorage,
-    })
-
-    // fill all the fields
+    // fill all the with custom values fields
     fireEvent.change(screen.getByTestId("expense-type"), {
       target: { value: "Transports" },
     })
@@ -176,6 +195,18 @@ describe("When I click on the submit button", () => {
       target: { value: "test bill" },
     })
 
+
+    const newBill = new NewBill({
+      document,
+      onNavigate,
+      store: mockStore,
+      localStorage: window.localStorage,
+    })
+
+    const spyOnNavigate = jest.spyOn(newBill, 'onNavigate')
+
+    const spyUpdateBill = jest.spyOn(newBill, 'updateBill')
+
     const handleSubmit = jest.fn((e) => newBill.handleSubmit(e));
 
     const form = screen.getByTestId("form-new-bill")
@@ -186,6 +217,20 @@ describe("When I click on the submit button", () => {
 
     expect(handleSubmit).toHaveBeenCalled()
 
-    expect(mockOnNavigate).toHaveBeenCalledWith(ROUTES_PATH['Bills'])
+    expect(spyUpdateBill).toHaveBeenCalledWith(expect.objectContaining({
+      type: "Transports",
+      name: "Vol Paris-Bordeaux",
+      date: "2023-04-01",
+      amount: 42,
+      vat: "18",
+      pct: 20,
+      commentary: "test bill",
+      status: 'pending'
+    }))
+
+    expect(spyOnNavigate).toHaveBeenCalledWith(ROUTES_PATH['Bills'])
+
+    
+    expect(screen.getByText("Mes notes de frais")).toBeTruthy()
   })
 })
