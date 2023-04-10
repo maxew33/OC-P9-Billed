@@ -1,5 +1,5 @@
 # Billed
-![Logo](https://raw.githubusercontent.com/maxew33/P9-Billed/main/img/1597396368627_image2.png)
+![Logo](https://raw.githubusercontent.com/maxew33/P9-Billed/main/logo.png)
 
 ## Compétences cibles
 
