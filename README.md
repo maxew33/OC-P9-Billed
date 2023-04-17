@@ -1,5 +1,5 @@
 # Billed
-![Logo](https://user.oc-static.com/upload/2020/08/14/1597396368627_image2.png)
+![Logo](https://github.com/maxew33/OC-P9-Billed/blob/main/logo.png)
 
 ## Compétences cibles
 
@@ -16,21 +16,34 @@ Corriger des bugs existants puis implémenter des tests unitaires et d'intégrat
 
 ### Lancer le backend
 
+- accéder au repertoire :
 `cd Billed-app-FR-Back`
 
+- installer les dépendances:
+`npm install`
+
+- lancer l'API
 `npm run run:dev`
 
 Accéder à l'API :
 
-L'api est accessible sur le port 5678 en local, c'est à dire http://localhost:5678
+L'api est accessible sur le port `5678` en local, c'est à dire `http://localhost:5678`
 
 ### Lancer le frontend
 
+- accéder au repertoire :
 `cd Billed-app-FR-Front`
 
+- installer les dépendances :
+`npm install`
+
+- installer live-server pour lancer un serveur local :
+`npm install -g live-server`
+
+- lancer l'application :
 `live-server`
 
-Puis allez à l'adresse : http://127.0.0.1:8080/
+Puis allez à l'adresse : `http://127.0.0.1:8080/`
 
 ### Utilisateur par défaut
 
@@ -53,7 +66,15 @@ mot de passe : employee
 
 ### résultats des tests
 
-## Author
+- rapport de tests Jest sur l’ensemble des fichiers.
+![rapport de tests](https://github.com/maxew33/OC-P9-Billed/blob/main/OC-P9-Billed-tests.png)
 
+- rapport de couverture Jest
+![rapport de couverture](https://github.com/maxew33/OC-P9-Billed/blob/main/OC-P9-Billed-rapport-couv.png)
+
+### test e2e
+[test end to end](https://github.com/maxew33/OC-P9-Billed/blob/main/OC-P9-Billed-test-e2e.pdf)
+
+## Author
 - [Maxime Malfilâtre](https://www.github.com/maxew33)
 
