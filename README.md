@@ -1,16 +1,16 @@
 # Billed
 ![Logo](https://github.com/maxew33/OC-P9-Billed/blob/main/logo.png)
 
+## Objectif
+
+- Corriger des bugs existants puis implémenter des tests unitaires et d'intégration.
+
 ## Compétences cibles
 
 - Débugger une application web avec le Chrome debugger
 - Écrire des tests d'intégration en js
 - Écrire des tests unitaires en js
 - Rédiger un plan de test end-to-end
-
-## Objectif
-
-Corriger des bugs existants puis implémenter des tests unitaires et d'intégration.
 
 ## Comment lancer l'appli en local
 
